@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blynks - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-dark: #080808;
+            --bg-darker: #050505;
+            --text: #e9e9e9;
+            --muted: #909090;
+            --neon-green: #d0ff13;
+            --neon-green-dark: #a6cc10;
+            --border: #222;
+            --card-bg: #111111;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(208, 255, 19, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(208, 255, 19, 0.03) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            position: relative;
+            text-shadow: 0 0 10px rgba(208, 255, 19, 0.5);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(208, 255, 19, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(208, 255, 19, 0.8);
+            }
+        }
+        
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .coming-soon-badge {
+            background-color: var(--card-bg);
+            color: var(--neon-green);
+            border: 1px solid rgba(208, 255, 19, 0.3);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: var(--text);
+            position: relative;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: slideUp 1s ease-out 0.2s backwards;
+        }
+        
+        .neon-highlight {
+            color: var(--neon-green);
+            font-weight: 700;
+            position: relative;
+        }
+        
+
+        .features {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .feature-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        
+
+        .floating-objects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .floating-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--neon-green);
+            border-radius: 50%;
+            opacity: 0.4;
+            filter: blur(1px);
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+        
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+        }
+        
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 30px;
+            background-color: var(--neon-green);
+            margin-left: 5px;
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .feature-card {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Blynks</div>
+        </header>
+        
+        <section class="hero">
+            <div class="floating-objects" id="dots-container"></div>
+            
+            <div class="coming-soon-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.24 17.76L10.8 12.32V7H12.8V11.68L17.76 16.64L16.24 17.76Z" fill="#d0ff13"/>
+                </svg>
+                Coming Soon
+            </div>
+            
+            <h1 class="hero-title">
+                Die neue Art zu chatten<span class="cursor"></span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                <span class="neon-highlight">Blynks</span> verbindet Menschen durch schnelle, sichere und stylische Kommunikation. Sei unter den Ersten, die die nächste Generation des Chattens erleben.
+            </p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Blitzschnell</h3>
+                    <p class="feature-desc">Sofortige Nachrichtenübermittlung ohne Verzögerungen.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Sicher & Privat</h3>
+                    <p class="feature-desc">End-zu-End-Verschlüsselung für deine vertraulichen Gespräche.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Features</h3>
+                    <p class="feature-desc">Innovative Funktionen, die deine Chat-Erfahrung revolutionieren.</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            &copy; 2026 Blynks. Alle Rechte vorbehalten.
+        </footer>
+    </div>
+    
+    <script>
+
+        function createFloatingDots() {
+            const container = document.getElementById('dots-container');
+            const dotCount = 50;
+            
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'floating-dot';
+                
+
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = 15 + Math.random() * 10;
+                
+                dot.style.left = `${x}%`;
+                dot.style.bottom = `${-5}%`;
+                dot.style.animationDelay = `${delay}s`;
+                dot.style.animationDuration = `${duration}s`;
+
+                const size = Math.random() * 4 + 1;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                
+                container.appendChild(dot);
+            }
+        }
+        
+        window.addEventListener('load', createFloatingDots);
+    </script>
+</body>
+</html>
