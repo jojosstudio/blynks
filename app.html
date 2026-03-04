@@ -42,7 +42,6 @@
                 radial-gradient(circle at 90% 70%, rgba(208, 255, 19, 0.02) 0%, transparent 30%);
         }
 
-        /* floating animation */
         .floating-bg {
             position: fixed;
             width: 100%;
@@ -65,7 +64,6 @@
             100% { transform: translate(30px, -40px) scale(1.3); }
         }
 
-        /* main layout */
         .app {
             position: relative;
             z-index: 10;
@@ -185,7 +183,7 @@
             font-size: 1.2rem;
         }
 
-        /* ===== MAIN CONTENT (flex row) ===== */
+        /* ===== MAIN CONTENT ===== */
         .content-row {
             display: flex;
             flex: 1;
@@ -193,14 +191,14 @@
             position: relative;
         }
 
-        /* DM SIDEBAR - ein/ausklappbar */
+        /* DM SIDEBAR */
         .dm-sidebar {
             width: var(--sidebar-width);
             background: var(--surface);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            transition: width 0.3s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.3s;
+            transition: width 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
             overflow: hidden;
             position: relative;
             box-shadow: 2px 0 10px rgba(0,0,0,0.3);
@@ -327,7 +325,7 @@
             margin: 0 auto;
         }
 
-        /* SERVER PANEL (rechts, versteckt bis klick) */
+        /* SERVER PANEL */
         .server-panel {
             width: 0;
             background: var(--surface);
@@ -392,7 +390,7 @@
             display: flex;
             flex-direction: column;
             background: var(--bg-darker);
-            min-width: 0; /* wichtig für flex */
+            min-width: 0;
         }
 
         .chat-header {
@@ -508,28 +506,145 @@
         }
 
         .input-wrapper button:hover {
-            background: var(--neon-green-dark);
+            background: #b8e012;
             box-shadow: 0 0 15px var(--neon-green);
         }
 
-        /* call indicator */
-        .call-indicator {
-            background: #1f1f1f;
-            border-radius: 50px;
-            padding: 4px 16px;
+        /* POPUP STYLES */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup {
+            background: var(--surface);
             border: 1px solid var(--neon-green);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 0 30px var(--neon-glow);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .popup h3 {
             color: var(--neon-green);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .popup p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .popup-users {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .popup-user-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .popup-user-item:hover {
+            border-color: var(--neon-green);
+            transform: translateX(8px);
+        }
+
+        .popup-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #202020;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .popup-user-info {
+            flex: 1;
+        }
+
+        .popup-user-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .popup-user-status {
             font-size: 0.8rem;
-            margin-left: 16px;
-            animation: pulseCall 2s infinite;
+            color: #43b581;
         }
 
-        @keyframes pulseCall {
-            0% { box-shadow: 0 0 0 0 var(--neon-glow); }
-            70% { box-shadow: 0 0 10px 5px rgba(208,255,19,0); }
+        .popup-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
         }
 
-        /* responsive */
+        .popup-btn {
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .popup-btn-primary {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .popup-btn-primary:hover {
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        .popup-btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .popup-btn-secondary:hover {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
         @media (max-width: 900px) {
             .dm-sidebar { --sidebar-width: 220px; }
         }
@@ -539,13 +654,13 @@
     <div class="floating-bg" id="bgParticles"></div>
 
     <div class="app">
-        <!-- TOP BAR mit Nutzer & Call-Aktionen -->
+        <!-- TOP BAR -->
         <div class="top-bar">
             <div class="logo-area">
                 <span class="logo">BLYNKS</span>
             </div>
 
-            <div class="user-profile">
+            <div class="user-profile" onclick="showUserPopup()">
                 <div class="avatar">T</div>
                 <span class="user-name">TestUser</span>
                 <div class="status-badge"></div>
@@ -555,47 +670,46 @@
                 <button class="action-btn" onclick="toggleServerPanel()">
                     <span class="action-icon">🌐</span> Server
                 </button>
-                <button class="action-btn">
+                <button class="action-btn" onclick="showCallPopup()">
                     <span class="action-icon">📞</span> Call starten
                 </button>
-                <button class="action-btn">
+                <button class="action-btn" onclick="showRoomPopup()">
                     <span class="action-icon">👥</span> Raum
                 </button>
             </div>
-            <div class="call-indicator">⚡ Live-Chat</div>
         </div>
 
-        <!-- HAUPTBEREICH: DM-SIDEBAR + CHAT + SERVER (rechts) -->
+        <!-- HAUPTBEREICH -->
         <div class="content-row">
-            <!-- DM SEITENLEISTE (ein/ausklappbar) -->
+            <!-- DM SEITENLEISTE -->
             <div class="dm-sidebar" id="dmSidebar">
                 <div class="sidebar-header">
                     <h3>DIREKTNACHRICHTEN</h3>
                     <button class="toggle-dm-btn" id="toggleDmBtn" onclick="toggleDmSidebar()">◀</button>
                 </div>
                 <div class="dm-list">
-                    <div class="dm-item active-dm">
+                    <div class="dm-item" data-user="Lena_style" data-avatar="L">
                         <div class="dm-avatar">L</div>
                         <div class="dm-info">
                             <div class="dm-name">Lena_style</div>
                             <div class="dm-preview">Hey, voll nice hier!</div>
                         </div>
                     </div>
-                    <div class="dm-item">
+                    <div class="dm-item" data-user="MaxM" data-avatar="M">
                         <div class="dm-avatar">M</div>
                         <div class="dm-info">
                             <div class="dm-name">MaxM</div>
                             <div class="dm-preview">Wann geht's los?</div>
                         </div>
                     </div>
-                    <div class="dm-item">
+                    <div class="dm-item" data-user="Chris_" data-avatar="C">
                         <div class="dm-avatar">C</div>
                         <div class="dm-info">
                             <div class="dm-name">Chris_</div>
                             <div class="dm-preview">Testnachricht</div>
                         </div>
                     </div>
-                    <div class="dm-item">
+                    <div class="dm-item" data-user="Jule" data-avatar="J">
                         <div class="dm-avatar">J</div>
                         <div class="dm-info">
                             <div class="dm-name">Jule</div>
@@ -607,7 +721,7 @@
 
             <!-- CHAT HAUPTFENSTER -->
             <div class="chat-area">
-                <div class="chat-header">
+                <div class="chat-header" id="chatHeader">
                     <span>💬</span> Lena_style · Direktnachricht
                 </div>
 
@@ -617,35 +731,119 @@
 
                 <div class="chat-input-area">
                     <div class="input-wrapper">
-                        <input type="text" placeholder="Nachricht an Lena_style ..." id="chatInput">
+                        <input type="text" placeholder="Nachricht schreiben ..." id="chatInput">
                         <button onclick="sendMessage()">Senden</button>
                     </div>
                 </div>
             </div>
 
-            <!-- SERVER PANEL (rechts, ausgeklappt per Klick) -->
+            <!-- SERVER PANEL -->
             <div class="server-panel" id="serverPanel">
                 <div class="server-header">
                     <span>🌍 MEINE SERVER</span>
                 </div>
                 <div class="server-list">
-                    <div class="server-item">
+                    <div class="server-item" onclick="showServerPopup('BLYNKS HQ')">
                         <div class="server-icon">B</div>
                         <div>BLYNKS HQ</div>
                     </div>
-                    <div class="server-item">
+                    <div class="server-item" onclick="showServerPopup('Gaming Zone')">
                         <div class="server-icon">🎮</div>
                         <div>Gaming Zone</div>
                     </div>
-                    <div class="server-item">
+                    <div class="server-item" onclick="showServerPopup('Music Lounge')">
                         <div class="server-icon">🎧</div>
                         <div>Music Lounge</div>
                     </div>
-                    <div class="server-item">
+                    <div class="server-item" onclick="showServerPopup('Neuer Server')">
                         <div class="server-icon">➕</div>
                         <div>Neuer Server</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP FÜR CALL -->
+    <div class="popup-overlay" id="callPopup">
+        <div class="popup">
+            <h3>📞 Anruf starten</h3>
+            <p>Mit wem möchtest du sprechen?</p>
+            <div class="popup-users">
+                <div class="popup-user-item" onclick="startCall('Lena_style')">
+                    <div class="popup-user-avatar">L</div>
+                    <div class="popup-user-info">
+                        <div class="popup-user-name">Lena_style</div>
+                        <div class="popup-user-status">🟢 Online</div>
+                    </div>
+                </div>
+                <div class="popup-user-item" onclick="startCall('MaxM')">
+                    <div class="popup-user-avatar">M</div>
+                    <div class="popup-user-info">
+                        <div class="popup-user-name">MaxM</div>
+                        <div class="popup-user-status">🟡 Abwesend</div>
+                    </div>
+                </div>
+                <div class="popup-user-item" onclick="startCall('Chris_')">
+                    <div class="popup-user-avatar">C</div>
+                    <div class="popup-user-info">
+                        <div class="popup-user-name">Chris_</div>
+                        <div class="popup-user-status">🔴 Beschäftigt</div>
+                    </div>
+                </div>
+                <div class="popup-user-item" onclick="startCall('Jule')">
+                    <div class="popup-user-avatar">J</div>
+                    <div class="popup-user-info">
+                        <div class="popup-user-name">Jule</div>
+                        <div class="popup-user-status">🟢 Online</div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-buttons">
+                <button class="popup-btn popup-btn-secondary" onclick="hideCallPopup()">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP FÜR SERVER -->
+    <div class="popup-overlay" id="serverPopup">
+        <div class="popup">
+            <h3>🌐 Server beitreten</h3>
+            <p id="serverPopupText">Möchtest du dem Server beitreten?</p>
+            <div class="popup-buttons">
+                <button class="popup-btn popup-btn-primary" onclick="connectToServer()">Verbinden</button>
+                <button class="popup-btn popup-btn-secondary" onclick="hideServerPopup()">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP FÜR TESTUSER -->
+    <div class="popup-overlay" id="userPopup">
+        <div class="popup">
+            <h3>👤 TestUser</h3>
+            <p>Profil-Informationen</p>
+            <div class="popup-users" style="margin-bottom: 0;">
+                <div class="popup-user-item" style="cursor: default;">
+                    <div class="popup-user-avatar">T</div>
+                    <div class="popup-user-info">
+                        <div class="popup-user-name">TestUser</div>
+                        <div class="popup-user-status">Mitglied seit heute</div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-buttons" style="margin-top: 24px;">
+                <button class="popup-btn popup-btn-secondary" onclick="hideUserPopup()">Schließen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP FÜR RAUM -->
+    <div class="popup-overlay" id="roomPopup">
+        <div class="popup">
+            <h3>👥 Raum erstellen</h3>
+            <p>Diese Funktion ist bald verfügbar!</p>
+            <div class="popup-buttons">
+                <button class="popup-btn popup-btn-secondary" onclick="hideRoomPopup()">OK</button>
             </div>
         </div>
     </div>
@@ -680,23 +878,41 @@
             }
         }
 
-        // Server Panel toggle (oben in der Bar)
+        // Server Panel toggle
         function toggleServerPanel() {
             const panel = document.getElementById('serverPanel');
             panel.classList.toggle('open');
         }
 
-        // Dummy Nachrichten
-        const messages = [
-            { author: 'Lena_style', avatar: 'L', text: 'Hey, wie findest du das neue Design?', time: '11:24', own: false },
-            { author: 'Du', avatar: 'T', text: 'Richtig stark! Liebe diese neon Elemente', time: '11:25', own: true },
-            { author: 'Lena_style', avatar: 'L', text: 'Ja, und die DM Leiste ist smooth', time: '11:26', own: false },
-            { author: 'Lena_style', avatar: 'L', text: 'Kannst du den Server ausklappen? Oben rechts.', time: '11:27', own: false },
-        ];
+        // Chat Nachrichten für verschiedene User
+        const chatHistories = {
+            'Lena_style': [
+                { author: 'Lena_style', avatar: 'L', text: 'Hey, wie findest du das neue Design?', time: '11:24', own: false },
+                { author: 'Du', avatar: 'T', text: 'Richtig stark! Liebe diese neon Elemente', time: '11:25', own: true },
+                { author: 'Lena_style', avatar: 'L', text: 'Ja, und die DM Leiste ist smooth', time: '11:26', own: false },
+                { author: 'Lena_style', avatar: 'L', text: 'Kannst du den Server ausklappen? Oben rechts.', time: '11:27', own: false },
+            ],
+            'MaxM': [
+                { author: 'MaxM', avatar: 'M', text: 'Wann geht\'s los mit dem Projekt?', time: '10:15', own: false },
+                { author: 'Du', avatar: 'T', text: 'Um 14 Uhr, bin bereit!', time: '10:16', own: true },
+                { author: 'MaxM', avatar: 'M', text: 'Perfekt, bis später!', time: '10:17', own: false },
+            ],
+            'Chris_': [
+                { author: 'Chris_', avatar: 'C', text: 'Testnachricht', time: '09:45', own: false },
+                { author: 'Du', avatar: 'T', text: 'Empfangen!', time: '09:46', own: true },
+            ],
+            'Jule': [
+                { author: 'Jule', avatar: 'J', text: '🤘 Rockt!', time: '08:30', own: false },
+                { author: 'Du', avatar: 'T', text: 'Auf jeden Fall!', time: '08:32', own: true },
+            ]
+        };
+
+        let currentUser = 'Lena_style';
 
         function renderMessages() {
             const container = document.getElementById('chatMessages');
             container.innerHTML = '';
+            const messages = chatHistories[currentUser] || [];
             messages.forEach((msg, idx) => {
                 const msgDiv = document.createElement('div');
                 msgDiv.className = `message ${msg.own ? 'own' : ''}`;
@@ -718,39 +934,109 @@
             const text = input.value.trim();
             if (!text) return;
 
-            const container = document.getElementById('chatMessages');
             const now = new Date();
             const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
             
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'message own';
-            msgDiv.style.animation = 'messageSlide 0.2s';
-            msgDiv.innerHTML = `
-                <div class="message-avatar">T</div>
-                <div class="message-bubble">
-                    <div style="text-align: right;"><span class="message-time">${timeStr}</span></div>
-                    <div>${text}</div>
-                </div>
-            `;
-            container.appendChild(msgDiv);
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
+            // Nachricht zur History hinzufügen
+            if (!chatHistories[currentUser]) {
+                chatHistories[currentUser] = [];
+            }
+            
+            chatHistories[currentUser].push({
+                author: 'Du',
+                avatar: 'T',
+                text: text,
+                time: timeStr,
+                own: true
+            });
 
-            // sim Antwort nach 1.2s
+            renderMessages();
+            input.value = '';
+
+            // Simulierte Antwort
             setTimeout(() => {
-                const answer = document.createElement('div');
-                answer.className = 'message';
-                answer.style.animation = 'messageSlide 0.3s';
-                answer.innerHTML = `
-                    <div class="message-avatar">L</div>
-                    <div class="message-bubble">
-                        <div class="message-author">Lena_style<span class="message-time">${timeStr}</span></div>
-                        <div>Coole Nachricht! (Demo)</div>
-                    </div>
-                `;
-                container.appendChild(answer);
-                container.scrollTop = container.scrollHeight;
+                const answerTexts = {
+                    'Lena_style': 'Coole Nachricht! (Demo)',
+                    'MaxM': 'Alles klar, check ich!',
+                    'Chris_': 'Verstanden 👍',
+                    'Jule': 'Nice! 😎'
+                };
+                
+                chatHistories[currentUser].push({
+                    author: currentUser,
+                    avatar: currentUser.charAt(0),
+                    text: answerTexts[currentUser] || 'Danke für deine Nachricht!',
+                    time: new Date().getHours().toString().padStart(2,'0') + ':' + new Date().getMinutes().toString().padStart(2,'0'),
+                    own: false
+                });
+                
+                renderMessages();
             }, 1200);
+        }
+
+        // DM items klickbar machen
+        function setupDmClicks() {
+            const dmItems = document.querySelectorAll('.dm-item');
+            dmItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    dmItems.forEach(i => i.classList.remove('active-dm'));
+                    this.classList.add('active-dm');
+                    
+                    const userName = this.dataset.user;
+                    const avatar = this.dataset.avatar;
+                    currentUser = userName;
+                    
+                    document.getElementById('chatHeader').innerHTML = `<span>💬</span> ${userName} · Direktnachricht`;
+                    renderMessages();
+                });
+            });
+        }
+
+        // Call Popup
+        function showCallPopup() {
+            document.getElementById('callPopup').style.display = 'flex';
+        }
+
+        function hideCallPopup() {
+            document.getElementById('callPopup').style.display = 'none';
+        }
+
+        function startCall(user) {
+            hideCallPopup();
+            alert(`📞 Anruf wird mit ${user} gestartet...`);
+        }
+
+        // Server Popup
+        function showServerPopup(serverName) {
+            document.getElementById('serverPopupText').textContent = `Möchtest du dem Server "${serverName}" beitreten?`;
+            document.getElementById('serverPopup').style.display = 'flex';
+        }
+
+        function hideServerPopup() {
+            document.getElementById('serverPopup').style.display = 'none';
+        }
+
+        function connectToServer() {
+            hideServerPopup();
+            alert('✅ Mit Server verbunden!');
+        }
+
+        // User Popup
+        function showUserPopup() {
+            document.getElementById('userPopup').style.display = 'flex';
+        }
+
+        function hideUserPopup() {
+            document.getElementById('userPopup').style.display = 'none';
+        }
+
+        // Room Popup
+        function showRoomPopup() {
+            document.getElementById('roomPopup').style.display = 'flex';
+        }
+
+        function hideRoomPopup() {
+            document.getElementById('roomPopup').style.display = 'none';
         }
 
         // Enter Taste
@@ -761,27 +1047,13 @@
             }
         });
 
-        // DM items klickbar machen (aktive klasse)
-        function setupDmClicks() {
-            const dmItems = document.querySelectorAll('.dm-item');
-            dmItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    dmItems.forEach(i => i.classList.remove('active-dm'));
-                    this.classList.add('active-dm');
-                    // chat header ändern
-                    const name = this.querySelector('.dm-name')?.innerText || 'User';
-                    document.querySelector('.chat-header').innerHTML = `<span>💬</span> ${name} · Direktnachricht`;
-                });
-            });
-        }
-
         window.onload = () => {
             initParticles();
             renderMessages();
             setupDmClicks();
-
-            // kleine animation: server panel initial zu, toggle button
-            document.getElementById('serverPanel').classList.remove('open'); // sicher
+            
+            // Aktiven DM-User setzen
+            document.querySelector('.dm-item').classList.add('active-dm');
         };
     </script>
 </body>
