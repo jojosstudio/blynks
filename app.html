@@ -86,6 +86,8 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             animation: slideDown 0.5s ease-out;
+            position: relative;
+            z-index: 100;
         }
 
         @keyframes slideDown {
@@ -118,6 +120,7 @@
             border: 1px solid var(--border);
             transition: 0.2s;
             cursor: pointer;
+            position: relative;
         }
 
         .user-profile:hover {
@@ -148,6 +151,77 @@
             border-radius: 50%;
             background: #43b581;
             margin-left: 4px;
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 280px;
+            background: var(--surface);
+            border: 1px solid var(--neon-green);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        .account-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .status-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .status-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .status-option:hover {
+            background: var(--hover-bg);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-online { background: #43b581; }
+        .status-idle { background: #faa61a; }
+        .status-dnd { background: #f04747; }
+        .status-offline { background: #747f8d; }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.15s;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dropdown-item:hover {
+            background: var(--hover-bg);
+            color: var(--neon-green);
         }
 
         .top-actions {
@@ -202,16 +276,10 @@
             overflow: hidden;
             position: relative;
             box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-            animation: slideRight 0.4s ease-out;
         }
 
         .dm-sidebar.collapsed {
             width: var(--sidebar-collapsed);
-        }
-
-        @keyframes slideRight {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
         }
 
         .sidebar-header {
@@ -337,51 +405,72 @@
         }
 
         .server-panel.open {
-            width: 260px;
+            width: 280px;
         }
 
         .server-header {
-            padding: 24px 16px 16px;
+            padding: 20px 16px;
             border-bottom: 1px solid var(--border);
             font-weight: 700;
             color: var(--neon-green);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .server-list {
+            flex: 1;
+            overflow-y: auto;
             padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
         }
 
-        .server-item {
+        .server-category {
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            padding-left: 8px;
+        }
+
+        .channel-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px;
+            gap: 8px;
+            padding: 8px 12px;
             border-radius: var(--radius-md);
-            background: #151515;
-            border: 1px solid var(--border);
             cursor: pointer;
             transition: 0.15s;
+            color: var(--text-muted);
+            margin-bottom: 2px;
         }
 
-        .server-item:hover {
-            border-color: var(--neon-green);
-            transform: scale(1.02);
-            background: #1e1e1e;
+        .channel-item:hover {
+            background: var(--hover-bg);
+            color: var(--text);
         }
 
-        .server-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
+        .channel-item.active-channel {
+            background: #191919;
             color: var(--neon-green);
+        }
+
+        .channel-icon {
+            font-size: 1.1rem;
+        }
+
+        .channel-name {
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .channel-users {
+            font-size: 0.7rem;
+            color: var(--text-muted);
         }
 
         /* MAIN CHAT */
@@ -536,7 +625,7 @@
             border: 1px solid var(--neon-green);
             border-radius: var(--radius);
             padding: 32px;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
             box-shadow: 0 0 30px var(--neon-glow);
             animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -550,13 +639,7 @@
         .popup h3 {
             color: var(--neon-green);
             font-size: 1.5rem;
-            margin-bottom: 16px;
-        }
-
-        .popup p {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         .popup-users {
@@ -564,6 +647,8 @@
             flex-direction: column;
             gap: 12px;
             margin-bottom: 24px;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
         .popup-user-item {
@@ -580,7 +665,12 @@
 
         .popup-user-item:hover {
             border-color: var(--neon-green);
-            transform: translateX(8px);
+        }
+
+        .popup-user-item.selected {
+            border-color: var(--neon-green);
+            background: #1a1a1a;
+            box-shadow: 0 0 10px var(--neon-glow);
         }
 
         .popup-user-avatar {
@@ -609,10 +699,29 @@
             color: #43b581;
         }
 
+        .popup-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-green);
+            font-size: 14px;
+        }
+
+        .popup-user-item.selected .popup-checkbox {
+            background: var(--neon-green);
+            color: black;
+            border-color: var(--neon-green);
+        }
+
         .popup-buttons {
             display: flex;
             gap: 12px;
             justify-content: flex-end;
+            margin-top: 20px;
         }
 
         .popup-btn {
@@ -645,6 +754,12 @@
             color: var(--neon-green);
         }
 
+        .selected-count {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 900px) {
             .dm-sidebar { --sidebar-width: 220px; }
         }
@@ -660,10 +775,52 @@
                 <span class="logo">BLYNKS</span>
             </div>
 
-            <div class="user-profile" onclick="showUserPopup()">
-                <div class="avatar">T</div>
-                <span class="user-name">TestUser</span>
-                <div class="status-badge"></div>
+            <div class="user-profile" onclick="toggleAccountDropdown()">
+                <div class="avatar" id="userAvatar">T</div>
+                <span class="user-name" id="userName">TestUser</span>
+                <div class="status-badge" id="userStatus"></div>
+                
+                <!-- Account Dropdown -->
+                <div class="account-dropdown" id="accountDropdown">
+                    <div class="dropdown-header">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                            <div class="avatar" style="width: 50px; height: 50px;">T</div>
+                            <div>
+                                <div style="font-weight: 700;">TestUser</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">#0001</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-selector">
+                            <div class="status-option" onclick="setStatus('online', '#43b581')">
+                                <span class="status-dot status-online"></span>
+                                <span>Online</span>
+                            </div>
+                            <div class="status-option" onclick="setStatus('abwesend', '#faa61a')">
+                                <span class="status-dot status-idle"></span>
+                                <span>Abwesend</span>
+                            </div>
+                            <div class="status-option" onclick="setStatus('beschäftigt', '#f04747')">
+                                <span class="status-dot status-dnd"></span>
+                                <span>Beschäftigt</span>
+                            </div>
+                            <div class="status-option" onclick="setStatus('offline', '#747f8d')">
+                                <span class="status-dot status-offline"></span>
+                                <span>Offline</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-item" onclick="showUserSettings()">
+                        <span>⚙️</span> Einstellungen
+                    </div>
+                    <div class="dropdown-item" onclick="showProfile()">
+                        <span>👤</span> Profil bearbeiten
+                    </div>
+                    <div class="dropdown-item" onclick="logout()">
+                        <span>🚪</span> Abmelden
+                    </div>
+                </div>
             </div>
 
             <div class="top-actions">
@@ -725,9 +882,7 @@
                     <span>💬</span> Lena_style · Direktnachricht
                 </div>
 
-                <div class="chat-messages" id="chatMessages">
-                    <!-- werden per js befüllt -->
-                </div>
+                <div class="chat-messages" id="chatMessages"></div>
 
                 <div class="chat-input-area">
                     <div class="input-wrapper">
@@ -740,104 +895,136 @@
             <!-- SERVER PANEL -->
             <div class="server-panel" id="serverPanel">
                 <div class="server-header">
-                    <span>🌍 MEINE SERVER</span>
+                    <span>🌍 BLYNKS HQ</span>
+                    <span style="font-size: 0.8rem;">⚡ 42 online</span>
                 </div>
                 <div class="server-list">
-                    <div class="server-item" onclick="showServerPopup('BLYNKS HQ')">
-                        <div class="server-icon">B</div>
-                        <div>BLYNKS HQ</div>
+                    <!-- Text Channels -->
+                    <div class="server-category">
+                        <div class="category-title">📝 TEXTKANÄLE</div>
+                        <div class="channel-item active-channel" onclick="switchChannel('allgemein')">
+                            <span class="channel-icon">💬</span>
+                            <span class="channel-name">allgemein</span>
+                            <span class="channel-users">12</span>
+                        </div>
+                        <div class="channel-item" onclick="switchChannel('off-topic')">
+                            <span class="channel-icon">🗣️</span>
+                            <span class="channel-name">off-topic</span>
+                            <span class="channel-users">5</span>
+                        </div>
+                        <div class="channel-item" onclick="switchChannel('support')">
+                            <span class="channel-icon">❓</span>
+                            <span class="channel-name">support</span>
+                            <span class="channel-users">3</span>
+                        </div>
                     </div>
-                    <div class="server-item" onclick="showServerPopup('Gaming Zone')">
-                        <div class="server-icon">🎮</div>
-                        <div>Gaming Zone</div>
+                    
+                    <!-- Voice Channels -->
+                    <div class="server-category">
+                        <div class="category-title">🔊 SPRACHKANÄLE</div>
+                        <div class="channel-item" onclick="joinVoice('general-voice')">
+                            <span class="channel-icon">🔊</span>
+                            <span class="channel-name">Allgemein</span>
+                            <span class="channel-users">4/10</span>
+                        </div>
+                        <div class="channel-item" onclick="joinVoice('gaming')">
+                            <span class="channel-icon">🎮</span>
+                            <span class="channel-name">Gaming</span>
+                            <span class="channel-users">2/5</span>
+                        </div>
+                        <div class="channel-item" onclick="joinVoice('music')">
+                            <span class="channel-icon">🎵</span>
+                            <span class="channel-name">Music Lounge</span>
+                            <span class="channel-users">3/8</span>
+                        </div>
                     </div>
-                    <div class="server-item" onclick="showServerPopup('Music Lounge')">
-                        <div class="server-icon">🎧</div>
-                        <div>Music Lounge</div>
+                    
+                    <!-- Gaming Zone Server -->
+                    <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <span style="color: var(--neon-green);">🎮 GAMING ZONE</span>
+                        </div>
+                        <div class="channel-item" onclick="switchServerChannel('lfg')">
+                            <span class="channel-icon">🎯</span>
+                            <span class="channel-name">lfg</span>
+                            <span class="channel-users">8</span>
+                        </div>
+                        <div class="channel-item" onclick="joinVoice('game-voice')">
+                            <span class="channel-icon">🔊</span>
+                            <span class="channel-name">Game Voice</span>
+                            <span class="channel-users">3/10</span>
+                        </div>
                     </div>
-                    <div class="server-item" onclick="showServerPopup('Neuer Server')">
-                        <div class="server-icon">➕</div>
-                        <div>Neuer Server</div>
+                    
+                    <!-- Music Lounge Server -->
+                    <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <span style="color: var(--neon-green);">🎧 MUSIC LOUNGE</span>
+                        </div>
+                        <div class="channel-item" onclick="switchServerChannel('playlists')">
+                            <span class="channel-icon">🎵</span>
+                            <span class="channel-name">playlists</span>
+                            <span class="channel-users">6</span>
+                        </div>
+                        <div class="channel-item" onclick="joinVoice('music-chill')">
+                            <span class="channel-icon">🔊</span>
+                            <span class="channel-name">Chill Zone</span>
+                            <span class="channel-users">5/15</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- POPUP FÜR CALL -->
+    <!-- CALL POPUP mit Mehrfachauswahl -->
     <div class="popup-overlay" id="callPopup">
         <div class="popup">
             <h3>📞 Anruf starten</h3>
-            <p>Mit wem möchtest du sprechen?</p>
-            <div class="popup-users">
-                <div class="popup-user-item" onclick="startCall('Lena_style')">
+            <p>Wähle die Teilnehmer aus (mehrfach möglich):</p>
+            <div class="selected-count" id="selectedCount">0 ausgewählt</div>
+            <div class="popup-users" id="callUsers">
+                <div class="popup-user-item" onclick="toggleUserSelection('Lena_style')" id="user-Lena_style">
                     <div class="popup-user-avatar">L</div>
                     <div class="popup-user-info">
                         <div class="popup-user-name">Lena_style</div>
                         <div class="popup-user-status">🟢 Online</div>
                     </div>
+                    <div class="popup-checkbox">✓</div>
                 </div>
-                <div class="popup-user-item" onclick="startCall('MaxM')">
+                <div class="popup-user-item" onclick="toggleUserSelection('MaxM')" id="user-MaxM">
                     <div class="popup-user-avatar">M</div>
                     <div class="popup-user-info">
                         <div class="popup-user-name">MaxM</div>
                         <div class="popup-user-status">🟡 Abwesend</div>
                     </div>
+                    <div class="popup-checkbox">✓</div>
                 </div>
-                <div class="popup-user-item" onclick="startCall('Chris_')">
+                <div class="popup-user-item" onclick="toggleUserSelection('Chris_')" id="user-Chris_">
                     <div class="popup-user-avatar">C</div>
                     <div class="popup-user-info">
                         <div class="popup-user-name">Chris_</div>
                         <div class="popup-user-status">🔴 Beschäftigt</div>
                     </div>
+                    <div class="popup-checkbox">✓</div>
                 </div>
-                <div class="popup-user-item" onclick="startCall('Jule')">
+                <div class="popup-user-item" onclick="toggleUserSelection('Jule')" id="user-Jule">
                     <div class="popup-user-avatar">J</div>
                     <div class="popup-user-info">
                         <div class="popup-user-name">Jule</div>
                         <div class="popup-user-status">🟢 Online</div>
                     </div>
+                    <div class="popup-checkbox">✓</div>
                 </div>
             </div>
             <div class="popup-buttons">
+                <button class="popup-btn popup-btn-primary" onclick="startGroupCall()">Anruf starten</button>
                 <button class="popup-btn popup-btn-secondary" onclick="hideCallPopup()">Abbrechen</button>
             </div>
         </div>
     </div>
 
-    <!-- POPUP FÜR SERVER -->
-    <div class="popup-overlay" id="serverPopup">
-        <div class="popup">
-            <h3>🌐 Server beitreten</h3>
-            <p id="serverPopupText">Möchtest du dem Server beitreten?</p>
-            <div class="popup-buttons">
-                <button class="popup-btn popup-btn-primary" onclick="connectToServer()">Verbinden</button>
-                <button class="popup-btn popup-btn-secondary" onclick="hideServerPopup()">Abbrechen</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- POPUP FÜR TESTUSER -->
-    <div class="popup-overlay" id="userPopup">
-        <div class="popup">
-            <h3>👤 TestUser</h3>
-            <p>Profil-Informationen</p>
-            <div class="popup-users" style="margin-bottom: 0;">
-                <div class="popup-user-item" style="cursor: default;">
-                    <div class="popup-user-avatar">T</div>
-                    <div class="popup-user-info">
-                        <div class="popup-user-name">TestUser</div>
-                        <div class="popup-user-status">Mitglied seit heute</div>
-                    </div>
-                </div>
-            </div>
-            <div class="popup-buttons" style="margin-top: 24px;">
-                <button class="popup-btn popup-btn-secondary" onclick="hideUserPopup()">Schließen</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- POPUP FÜR RAUM -->
+    <!-- ROOM POPUP -->
     <div class="popup-overlay" id="roomPopup">
         <div class="popup">
             <h3>👥 Raum erstellen</h3>
@@ -866,16 +1053,48 @@
             }
         }
 
+        // Account Dropdown
+        function toggleAccountDropdown() {
+            const dropdown = document.getElementById('accountDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function setStatus(status, color) {
+            const statusBadge = document.getElementById('userStatus');
+            statusBadge.style.background = color;
+            toggleAccountDropdown();
+            
+            let statusText = '';
+            switch(status) {
+                case 'online': statusText = 'Online'; break;
+                case 'abwesend': statusText = 'Abwesend'; break;
+                case 'beschäftigt': statusText = 'Beschäftigt'; break;
+                case 'offline': statusText = 'Offline'; break;
+            }
+            console.log(`Status geändert zu: ${statusText}`);
+        }
+
+        function showUserSettings() {
+            toggleAccountDropdown();
+            alert('Einstellungen werden geladen...');
+        }
+
+        function showProfile() {
+            toggleAccountDropdown();
+            alert('Profil bearbeiten...');
+        }
+
+        function logout() {
+            toggleAccountDropdown();
+            alert('Abgemeldet!');
+        }
+
         // DM Sidebar toggle
         function toggleDmSidebar() {
             const sidebar = document.getElementById('dmSidebar');
             const btn = document.getElementById('toggleDmBtn');
             sidebar.classList.toggle('collapsed');
-            if (sidebar.classList.contains('collapsed')) {
-                btn.innerHTML = '▶';
-            } else {
-                btn.innerHTML = '◀';
-            }
+            btn.innerHTML = sidebar.classList.contains('collapsed') ? '▶' : '◀';
         }
 
         // Server Panel toggle
@@ -884,18 +1103,48 @@
             panel.classList.toggle('open');
         }
 
-        // Chat Nachrichten für verschiedene User
+        // Server Channels
+        function switchChannel(channel) {
+            document.querySelectorAll('.channel-item').forEach(el => {
+                el.classList.remove('active-channel');
+            });
+            event.currentTarget.classList.add('active-channel');
+            document.getElementById('chatHeader').innerHTML = `<span>💬</span> #${channel} · BLYNKS HQ`;
+            renderServerMessages(channel);
+        }
+
+        function switchServerChannel(channel) {
+            document.getElementById('chatHeader').innerHTML = `<span>💬</span> #${channel} · Gaming Zone`;
+            renderServerMessages(channel);
+        }
+
+        function joinVoice(channel) {
+            alert(`🔊 Dem Sprachkanal "${channel}" beigetreten!`);
+        }
+
+        function renderServerMessages(channel) {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = `
+                <div class="message">
+                    <div class="message-avatar">B</div>
+                    <div class="message-bubble">
+                        <div class="message-author">Bot<span class="message-time">12:00</span></div>
+                        <div>Willkommen im Kanal #${channel}!</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Chat Histories für DMs
         const chatHistories = {
             'Lena_style': [
                 { author: 'Lena_style', avatar: 'L', text: 'Hey, wie findest du das neue Design?', time: '11:24', own: false },
                 { author: 'Du', avatar: 'T', text: 'Richtig stark! Liebe diese neon Elemente', time: '11:25', own: true },
                 { author: 'Lena_style', avatar: 'L', text: 'Ja, und die DM Leiste ist smooth', time: '11:26', own: false },
-                { author: 'Lena_style', avatar: 'L', text: 'Kannst du den Server ausklappen? Oben rechts.', time: '11:27', own: false },
             ],
             'MaxM': [
                 { author: 'MaxM', avatar: 'M', text: 'Wann geht\'s los mit dem Projekt?', time: '10:15', own: false },
                 { author: 'Du', avatar: 'T', text: 'Um 14 Uhr, bin bereit!', time: '10:16', own: true },
-                { author: 'MaxM', avatar: 'M', text: 'Perfekt, bis später!', time: '10:17', own: false },
             ],
             'Chris_': [
                 { author: 'Chris_', avatar: 'C', text: 'Testnachricht', time: '09:45', own: false },
@@ -908,15 +1157,15 @@
         };
 
         let currentUser = 'Lena_style';
+        let selectedUsers = [];
 
         function renderMessages() {
             const container = document.getElementById('chatMessages');
             container.innerHTML = '';
             const messages = chatHistories[currentUser] || [];
-            messages.forEach((msg, idx) => {
+            messages.forEach(msg => {
                 const msgDiv = document.createElement('div');
                 msgDiv.className = `message ${msg.own ? 'own' : ''}`;
-                msgDiv.style.animationDelay = idx * 0.05 + 's';
                 msgDiv.innerHTML = `
                     <div class="message-avatar">${msg.avatar}</div>
                     <div class="message-bubble">
@@ -937,7 +1186,6 @@
             const now = new Date();
             const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
             
-            // Nachricht zur History hinzufügen
             if (!chatHistories[currentUser]) {
                 chatHistories[currentUser] = [];
             }
@@ -952,29 +1200,9 @@
 
             renderMessages();
             input.value = '';
-
-            // Simulierte Antwort
-            setTimeout(() => {
-                const answerTexts = {
-                    'Lena_style': 'Coole Nachricht! (Demo)',
-                    'MaxM': 'Alles klar, check ich!',
-                    'Chris_': 'Verstanden 👍',
-                    'Jule': 'Nice! 😎'
-                };
-                
-                chatHistories[currentUser].push({
-                    author: currentUser,
-                    avatar: currentUser.charAt(0),
-                    text: answerTexts[currentUser] || 'Danke für deine Nachricht!',
-                    time: new Date().getHours().toString().padStart(2,'0') + ':' + new Date().getMinutes().toString().padStart(2,'0'),
-                    own: false
-                });
-                
-                renderMessages();
-            }, 1200);
         }
 
-        // DM items klickbar machen
+        // DM items klickbar
         function setupDmClicks() {
             const dmItems = document.querySelectorAll('.dm-item');
             dmItems.forEach(item => {
@@ -982,18 +1210,20 @@
                     dmItems.forEach(i => i.classList.remove('active-dm'));
                     this.classList.add('active-dm');
                     
-                    const userName = this.dataset.user;
-                    const avatar = this.dataset.avatar;
-                    currentUser = userName;
-                    
-                    document.getElementById('chatHeader').innerHTML = `<span>💬</span> ${userName} · Direktnachricht`;
+                    currentUser = this.dataset.user;
+                    document.getElementById('chatHeader').innerHTML = `<span>💬</span> ${currentUser} · Direktnachricht`;
                     renderMessages();
                 });
             });
         }
 
-        // Call Popup
+        // Call Popup mit Mehrfachauswahl
         function showCallPopup() {
+            selectedUsers = [];
+            updateSelectedCount();
+            document.querySelectorAll('.popup-user-item').forEach(el => {
+                el.classList.remove('selected');
+            });
             document.getElementById('callPopup').style.display = 'flex';
         }
 
@@ -1001,33 +1231,29 @@
             document.getElementById('callPopup').style.display = 'none';
         }
 
-        function startCall(user) {
+        function toggleUserSelection(user) {
+            const element = document.getElementById(`user-${user}`);
+            if (selectedUsers.includes(user)) {
+                selectedUsers = selectedUsers.filter(u => u !== user);
+                element.classList.remove('selected');
+            } else {
+                selectedUsers.push(user);
+                element.classList.add('selected');
+            }
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = `${selectedUsers.length} ausgewählt`;
+        }
+
+        function startGroupCall() {
+            if (selectedUsers.length === 0) {
+                alert('Bitte wähle mindestens einen Teilnehmer aus!');
+                return;
+            }
             hideCallPopup();
-            alert(`📞 Anruf wird mit ${user} gestartet...`);
-        }
-
-        // Server Popup
-        function showServerPopup(serverName) {
-            document.getElementById('serverPopupText').textContent = `Möchtest du dem Server "${serverName}" beitreten?`;
-            document.getElementById('serverPopup').style.display = 'flex';
-        }
-
-        function hideServerPopup() {
-            document.getElementById('serverPopup').style.display = 'none';
-        }
-
-        function connectToServer() {
-            hideServerPopup();
-            alert('✅ Mit Server verbunden!');
-        }
-
-        // User Popup
-        function showUserPopup() {
-            document.getElementById('userPopup').style.display = 'flex';
-        }
-
-        function hideUserPopup() {
-            document.getElementById('userPopup').style.display = 'none';
+            alert(`📞 Gruppenanruf gestartet mit: ${selectedUsers.join(', ')}`);
         }
 
         // Room Popup
@@ -1047,12 +1273,20 @@
             }
         });
 
+        // Klick außerhalb schließt Dropdown
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('accountDropdown');
+            const profile = document.querySelector('.user-profile');
+            
+            if (!profile.contains(event.target) && dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        });
+
         window.onload = () => {
             initParticles();
             renderMessages();
             setupDmClicks();
-            
-            // Aktiven DM-User setzen
             document.querySelector('.dm-item').classList.add('active-dm');
         };
     </script>
