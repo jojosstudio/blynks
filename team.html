@@ -30,25 +30,57 @@
       overflow-x: hidden;
     }
 
+    /* ── Logo / Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
 
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: var(--neon-green);
+      text-decoration: none;
+      position: relative;
+      text-shadow: 0 0 10px rgba(208, 255, 19, 0.5);
+      animation: pulse 3s infinite;
+    }
 
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--neon-green);
-            position: relative;
-            text-shadow: 0 0 10px rgba(208, 255, 19, 0.5);
-            animation: pulse 3s infinite;
-        }
+    .logo span { color: var(--neon-green); }
 
-.logo span {
-  color: var(--accent);
-}
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px rgba(200, 241, 53, 0.5); }
+      50% { text-shadow: 0 0 20px rgba(200, 241, 53, 0.8); }
+    }
 
-@keyframes pulse {
-  0%, 100% { text-shadow: 0 0 10px rgba(200, 241, 53, 0.5); }
-  50% { text-shadow: 0 0 20px rgba(200, 241, 53, 0.8); }
-}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav ul a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover,
+    nav ul a.active { color: var(--neon-green); }
 
     /* ── Hero ── */
     .hero {
@@ -86,10 +118,7 @@
       margin-bottom: 2.5rem;
     }
 
-    h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
+    h1 em { font-style: normal; color: var(--accent); }
 
     .hero-sub {
       font-family: 'Space Mono', monospace;
@@ -108,11 +137,7 @@
     }
 
     /* ── Team grid ── */
-    .team-section {
-      padding: 6rem 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .team-section { padding: 6rem 4rem; max-width: 1200px; margin: 0 auto; }
 
     .section-label {
       font-family: 'Space Mono', monospace;
@@ -174,6 +199,7 @@
       margin-bottom: 3rem;
     }
 
+    /* ── Avatar with images ── */
     .member-avatar {
       width: 72px;
       height: 72px;
@@ -183,13 +209,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 2rem;
+      overflow: hidden; /* keeps image circular */
       position: relative;
       transition: border-color 0.3s;
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* scale image nicely */
     }
 
     .member:hover .member-avatar {
@@ -210,9 +238,7 @@
       animation: spin 8s linear infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .member-name {
       font-size: 1.6rem;
@@ -239,20 +265,7 @@
       margin-bottom: 2rem;
     }
 
-    .member-bio {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--muted);
-      line-height: 1.9;
-      letter-spacing: 0.01em;
-    }
-
-    .member-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 2rem;
-    }
+    .member-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
 
     .tag {
       font-family: 'Space Mono', monospace;
@@ -266,9 +279,7 @@
       transition: all 0.2s;
     }
 
-    .member:hover .tag {
-      border-color: #2a2a2a;
-    }
+    .member:hover .tag { border-color: #2a2a2a; }
 
     .tag.highlight {
       color: var(--accent);
@@ -291,13 +302,7 @@
     }
 
     /* ── Values strip ── */
-    .values-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 2rem 0;
-      overflow: hidden;
-      position: relative;
-    }
+    .values-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 0; overflow: hidden; position: relative; }
 
     .values-track {
       display: flex;
@@ -307,14 +312,9 @@
       width: max-content;
     }
 
-    .values-strip:hover .values-track {
-      animation-play-state: paused;
-    }
+    .values-strip:hover .values-track { animation-play-state: paused; }
 
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     .values-item {
       font-family: 'Space Mono', monospace;
@@ -358,8 +358,6 @@
 
     footer a:hover { color: var(--accent); }
 
-    
-
     /* ── Fade in animations ── */
     .fade-up {
       opacity: 0;
@@ -371,9 +369,7 @@
     .fade-up:nth-child(2) { animation-delay: 0.2s; }
     .fade-up:nth-child(3) { animation-delay: 0.3s; }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
     .hero > * {
       opacity: 0;
@@ -391,58 +387,9 @@
       .team-grid { grid-template-columns: 1fr; }
       .divider { margin: 0 2rem; }
       footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+      nav { padding: 1.5rem 2rem; }
+      nav ul { gap: 1.5rem; }
     }
-    nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 4rem;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: rgba(8,8,8,0.92);
-  backdrop-filter: blur(12px);
-  z-index: 100;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-}
-
-nav ul a {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-
-nav ul a:hover,
-nav ul a.active {
-  color: var(--neon-green);
-}
-
-.logo {
-  font-family: 'Space Mono', monospace;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  color: var(--neon-green);
-  text-decoration: none;
-}
-
-.logo span {
-  color: var(--neon-green);
-}
-
-@media (max-width: 900px) {
-  nav { padding: 1.5rem 2rem; }
-  nav ul { gap: 1.5rem; }
-}
   </style>
 </head>
 <body>
@@ -454,95 +401,91 @@ nav ul a.active {
       <li><a href="team" class="active">Team</a></li>
       <li><a href="impressum">Impressum</a></li>
     </ul>
-  </nav>
+</nav>
 
-  <section class="hero">
-    <div class="hero-tag">Das Team dahinter</div>
-    <h1>Drei Köpfe.<br/>Eine <em>Vision.</em></h1>
+<section class="hero">
+  <div class="hero-tag">Das Team dahinter</div>
+  <h1>Drei Köpfe.<br/>Eine <em>Vision.</em></h1>
+</section>
 
-  </section>
+<div class="divider"></div>
 
-  <div class="divider"></div>
+<section class="team-section">
+  <div class="section-label">Mitgründer &amp; Team</div>
+  <div class="team-grid">
 
-  <section class="team-section">
-    <div class="section-label">Mitgründer &amp; Team</div>
-
-    <div class="team-grid">
-
-      <!-- Lenodro -->
-      <div class="member fade-up">
-        <span class="co-founder-badge">Mitgründer</span>
-        <div class="member-number">01 / 03</div>
-        <div class="member-avatar">LN</div>
-        <div class="member-name">Lenodro</div>
-        <div class="member-handle">@lenodro</div>
-        <div class="member-role">Marketing &amp; UI Design</div>
-        <div class="member-tags">
-          <span class="tag highlight">UI / UX</span>
-          <span class="tag">Branding</span>
-          <span class="tag">Marketing</span>
-        </div>
+    <!-- Lenodro -->
+    <div class="member fade-up">
+      <span class="co-founder-badge">Mitgründer</span>
+      <div class="member-number">01 / 03</div>
+      <div class="member-avatar"><img src="pfp/lenodro.png" alt="Lenodro"></div>
+      <div class="member-name">Lenodro</div>
+      <div class="member-handle">@lenodro</div>
+      <div class="member-role">Marketing &amp; UI Design</div>
+      <div class="member-tags">
+        <span class="tag highlight">UI / UX</span>
+        <span class="tag">Branding</span>
+        <span class="tag">Marketing</span>
       </div>
-
-      <!-- jojosstudio -->
-      <div class="member fade-up">
-        <span class="co-founder-badge">Mitgründer</span>
-        <div class="member-number">02 / 03</div>
-        <div class="member-avatar">JS</div>
-        <div class="member-name">jojosstudio</div>
-        <div class="member-handle">@jojosstudio</div>
-        <div class="member-role">Frontend-Entwicklung</div>
-        <div class="member-tags">
-          <span class="tag highlight">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">JavaScript</span>
-        </div>
-      </div>
-
-      <!-- sprngls -->
-      <div class="member fade-up">
-        <span class="co-founder-badge">Mitgründer</span>
-        <div class="member-number">03 / 03</div>
-        <div class="member-avatar">SPR</div>
-        <div class="member-name">SPRNGLS</div>
-        <div class="member-handle">@sprngls</div>
-        <div class="member-role">Backend-Entwicklung</div>
-        
-        <div class="member-tags">
-          <span class="tag highlight">Node.js</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">Typescript</span>
-          <span class="tag">Infra</span>
-          <span class="tag">Security</span>
-        </div>
-      </div>
-
     </div>
-  </section>
 
-  <!-- Scrolling values -->
-  <div class="values-strip">
-    <div class="values-track">
-      <span class="values-item">Schnell</span>
-      <span class="values-item">Sicher</span>
-      <span class="values-item">Open Source</span>
-      <span class="values-item">Made in Germany</span>
-      <span class="values-item">Datenschutz zuerst</span>
-      <span class="values-item">Community-driven</span>
-      <span class="values-item">Schnell</span>
-      <span class="values-item">Sicher</span>
-      <span class="values-item">Open Source</span>
-      <span class="values-item">Made in Germany</span>
-      <span class="values-item">Datenschutz zuerst</span>
-      <span class="values-item">Community-driven</span>
+    <!-- jojosstudio -->
+    <div class="member fade-up">
+      <span class="co-founder-badge">Mitgründer</span>
+      <div class="member-number">02 / 03</div>
+      <div class="member-avatar"><img src="pfp/jojo.webp" alt="jojosstudio"></div>
+      <div class="member-name">jojosstudio</div>
+      <div class="member-handle">@jojosstudio</div>
+      <div class="member-role">Frontend-Entwicklung</div>
+      <div class="member-tags">
+        <span class="tag highlight">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+      </div>
     </div>
+
+    <!-- SPRNGLS -->
+    <div class="member fade-up">
+      <span class="co-founder-badge">Mitgründer</span>
+      <div class="member-number">03 / 03</div>
+      <div class="member-avatar"><img src="pfp/sprngls.png" alt="SPRNGLS"></div>
+      <div class="member-name">SPRNGLS</div>
+      <div class="member-handle">@sprngls</div>
+      <div class="member-role">Backend-Entwicklung</div>
+      <div class="member-tags">
+        <span class="tag highlight">Node.js</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Typescript</span>
+        <span class="tag">Infra</span>
+        <span class="tag">Security</span>
+      </div>
+    </div>
+
   </div>
+</section>
 
-  <footer>
-    <p>© 2026 BLYNKS. Alle Rechte vorbehalten.</p>
-    <p><a href="impressum.html">Impressum</a></p>
-  </footer>
+<!-- Scrolling values -->
+<div class="values-strip">
+  <div class="values-track">
+    <span class="values-item">Schnell</span>
+    <span class="values-item">Sicher</span>
+    <span class="values-item">Open Source</span>
+    <span class="values-item">Made in Germany</span>
+    <span class="values-item">Datenschutz zuerst</span>
+    <span class="values-item">Community-driven</span>
+    <span class="values-item">Schnell</span>
+    <span class="values-item">Sicher</span>
+    <span class="values-item">Open Source</span>
+    <span class="values-item">Made in Germany</span>
+    <span class="values-item">Datenschutz zuerst</span>
+    <span class="values-item">Community-driven</span>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 BLYNKS. Alle Rechte vorbehalten.</p>
+  <p><a href="impressum.html">Impressum</a></p>
+</footer>
 
 </body>
-
 </html>
