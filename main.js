@@ -60,6 +60,20 @@ const requestHandler = (req, res) => {
         }
     });
 }
+					else if (req.url === '/team') {
+    const filePath = path.join(__dirname, 'team.html');
+    
+    fs.readFile(filePath, (err, content) => {
+        if (err) {
+            console.error(`Fehler beim Laden der Team Seite:`, err);
+            res.writeHead(500);
+            res.end('Team-Seite nicht gefunden');
+        } else {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(content);
+        }
+    });
+}
 else if (req.url === '/app') {
     const filePath = path.join(__dirname, 'app.html');
     
