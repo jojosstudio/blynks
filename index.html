@@ -243,7 +243,15 @@
             from, to { opacity: 1; }
             50% { opacity: 0; }
         }
-        
+        @media (max-width: 900px) {
+      nav { padding: 1.5rem 2rem; }
+      nav ul { gap: 1.5rem; }
+      .hero { padding: 5rem 2rem 4rem; }
+      .team-section { padding: 4rem 2rem; }
+      .team-grid { grid-template-columns: 1fr; }
+      .divider { margin: 0 2rem; }
+      footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
 
         /* Cookie Banner Styles */
         .cookie-banner {
@@ -364,13 +372,72 @@
                 font-size: 1rem;
             }
         }
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+nav ul a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+nav ul a:hover,
+nav ul a.active {
+  color: var(--neon-green);
+}
+
+.logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--neon-green);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--neon-green);
+}
+
+@media (max-width: 900px) {
+  nav { padding: 1.5rem 2rem; }
+  nav ul { gap: 1.5rem; }
+}
     </style>
 </head>
 <body>
+    
+  <nav>
+    <a class="logo" href="#">BL<span>Y</span>NKS</a>
+    <ul>
+      <li><a href="index.html" class="active">Start</a></li>
+      <li><a href="team.html" >Team</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+    </ul>
+  </nav>
+
     <div class="container">
-        <header>
-            <div class="logo">BLYNKS</div>
-        </header>
+
         
         <section class="hero">
             <div class="floating-objects" id="dots-container"></div>
@@ -393,9 +460,33 @@
         </section>
         
         <footer>
-            &copy; 2026 BLYNKS. Alle Rechte vorbehalten.
-            <a href="/impressum">Impressum</a>
-        </footer>
+    &copy; 2026 BLYNKS. Alle Rechte vorbehalten.  
+    <a href="impressum.html" class="footer-link">Impressum</a> | 
+    <a href="team.html" class="footer-link">Team</a>
+</footer>
+
+<style>
+    footer {
+        padding: 30px 0;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        border-top: 1px solid var(--border);
+        margin-top: 80px;
+    }
+
+    footer a.footer-link {
+        color: var(--neon-green);
+        text-decoration: none;
+        margin: 0 5px;
+        transition: all 0.2s;
+    }
+
+    footer a.footer-link:hover {
+        text-shadow: 0 0 8px var(--neon-green);
+        color: var(--neon-green-dark);
+    }
+</style>
     </div>
     
 

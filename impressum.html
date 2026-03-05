@@ -384,16 +384,72 @@
                 margin-bottom: 10px;
             }
         }
+        nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+nav ul a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+nav ul a:hover,
+nav ul a.active {
+  color: var(--neon-green);
+}
+
+.logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--neon-green);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--neon-green);
+}
+
+@media (max-width: 900px) {
+  nav { padding: 1.5rem 2rem; }
+  nav ul { gap: 1.5rem; }
+}
     </style>
 </head>
 <body>
+    <nav>
+    <a class="logo" href="#">BL<span>Y</span>NKS</a>
+    <ul>
+      <li><a href="index.html">Start</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="impressum.html" class="active">Impressum</a></li>
+    </ul>
+  </nav>
     <div class="container">
         <div class="floating-objects" id="dots-container"></div>
         
-        <!-- Header -->
-        <header>
-            <div class="logo">Blynks</div>
-        </header>
+
 
         <!-- Main Content -->
         <main class="main-content">
